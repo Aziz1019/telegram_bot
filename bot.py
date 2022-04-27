@@ -1,6 +1,5 @@
 """
-This is an echo bot.
-It echoes any incoming text messages.
+This is a wikipedia bot
 """
 
 import logging
