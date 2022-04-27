@@ -4,10 +4,14 @@ It echoes any incoming text messages.
 """
 
 import logging
+import wikipedia
 
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = '5219586926:AAHZdk7HgBHGKIILCqtqJAUFbociulB4nyQ'
+
+# Setting language of the Wiki
+wikipedia.set_lang("uz")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -26,10 +30,12 @@ async def send_welcome(message: types.Message):
 
 
 @dp.message_handler()
-async def echo(message: types.Message):
-
-    await message.answer(message.text)
-
+async def wikiSend(message: types.Message):
+    try:
+        respond = wikipedia.summary(message.text)
+        await message.answer(respond)
+    except:
+        await message.answer("Bu mavzuga oid maqola topilmadi.")
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
